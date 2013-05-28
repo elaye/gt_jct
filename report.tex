@@ -78,9 +78,13 @@ Le rayon du cylindre est $R_2 = 3.5 \mathrm{cm}$, le rayon du fil est $R_1 = 0.1
 
 L'étude de la trajectoire des électrons dans le guide nécessite la connaissance du champ électrique dans ce dernier. Nous allons donc commencer par déterminer le champ électrique dans le guide avant de s'intéresser à notre problème qui concerne la trajectoire des électrons.
 
-\subsection{Une première détermination du champ électrique dans le guide}
+\section{Modèle simplifié du champ dans le guide}
+
 
 On commence par envisager un modèle simple, qui consiste à dire que le tube est suffisamment grand pour pouvoir négliger les effets de bords (on aura l'occasion de revenir sur cette hypothèse). On va donc considérer que le tube est infini. Le problème présente alors des symétries intéressantes.
+
+
+\subsection{Détermination du champ électrique et du potentiel dans le guide}
 
 En premier lieu on déduit des invariances par translation selon l'axe $z$ et par rotation autour de ce même axe que le champ électrique $\mathbf{E}$ et le potentiel $V$ ne dépendent pas des coordonnées $z$ et $\theta$. Soit maintenant un point $M$ à l'intérieur du cylindre, il appartient à deux plans de symétrie du problème (l'un contenant l'axe $z$ et l'autre perpendiculaire à ce même axe), on en déduit que le champ électrique au point $M$ est contenu dans ces deux plans. Le champ électrique dans le cylindre est donc de la forme
 \begin{eqnarray}
@@ -100,6 +104,22 @@ Les données du problème nous assurent que $V(R_2) - V(R_1) = V_0$, on en dédu
 \mathbf{E} &=& \frac{V_0}{\ln(\frac{R_2}{R_1})r} \mathbf{e_r}\\
 V(r) &=& V_0 \frac{\ln(R_2) - \ln(r)}{\ln(R_2) - \ln(R_1)} 
 \end{eqnarray}
+
+\subsection{Equations de la trajectoire de l'électron}
+
+Une fois une expression analytique du champ déterminée, il est relativement aisé d'écrire les équations du mouvement de l'électron dans le guide. Comme déjà suggéré, l'électron est soumis à la force de Lorentz et donc, dans notre système de coordonnées, le principe fondamental de la dynamique s'écrit de la manière suivante :
+\begin{eqnarray}
+\ddot{r} - r \dot{\theta}^2 &=& \frac{e V_0}{m_e \ln(\frac{R_2}{R_1}) r} \\
+r \ddot{\theta} + 2 \dot{r} \dot{\theta} &=& 0\\
+\ddot{z} &=& 0
+\end{eqnarray}
+Ces équations écrites il nous faut choisir une méthode numérique pour calculer leur trajectoire.
+
+\subsection{Calcul de la trajectoire de l'électron}
+
+Notre choix s'est d'abord porté sur une méthode de résolution d'équations différentielles à pas fixe : la méthode de Runge-Kutta d'ordre 4. Elle est relativement simple à implémenter et tout aussi relativement précise.
+
+
 
 \section{partie analytique}
 
