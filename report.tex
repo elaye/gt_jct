@@ -13,8 +13,8 @@
 \geometry{dvips,a4paper,margin=1.5in}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
-\title{Etude des trajectoires Ã©lectroniques dans un guide par la mÃ©thode des Ã©lÃ©ments finis}
-\author{Elie GÃ©nard, FÃ©lix Tora}
+\title{Etude des trajectoires électroniques dans un guide par la méthode des éléments finis}
+\author{Elie Génard, Félix Tora}
 \date{Mai 2013}
 
 
@@ -124,8 +124,68 @@ Notre choix s'est d'abord portÃ© sur une mÃ©thode de rÃ©solution d'Ã©quations di
 \section{partie analytique}
 
 
-\section{effets de bords et rÃ©solution}
+\section{Modélisation du champ dans le guide}
+\subsection{Modèle simplifié ne tenant pas compte des effets de bord}
 
+\subsection{Modèle simplifié tenant compte des effets de bord}
+
+\subsubsection{Présentation de l'équation à résoudre}
+On suppose maintenant que le dispositif n'est plus de longueur infinie, ce qui fait apparaître des effets de bord et nous empêche donc de résoudre analytiquement l'équation de Laplace ($\Delta V=0$). Cependant on peut tout de même simplifier le problème en admettant que le potentiel est à symétrie cylindrique, c'est à dire que $V$ est invariant selon $\theta$. On doit donc résoudre numériquement l'équation suivante:
+
+\[
+\Delta V(r,z)=0
+\]
+Soit:
+\[
+\frac{\partial^2 V,\partial r^2}+\frac{1,r}\frac{\partial V, \partial r}+\frac{\partial^2 V,\partial z^2}=0
+\]
+
+\subsubsection{Limites du modèle}
+On remarquera que dans ce modèle on ne prend pas en compte le fil d'arrivée de potentiel qui en réalité déforme le potentiel à l'intérieur du tube. On ne prend pas non plus en compte le fil qui connecte le tube à la masse car nous travaillons à l'intérieur du cylindre et il n'a donc aucune influence.
+
+\subsubsection{Modèle numérique}
+Afin de résoudre numériquement l'équation de Laplace, on utilise la méthode des éléments finis dans l'approximation de Galerkin qui consiste à pondérer l'équation aux dérivées partielles par une fonction test $\beta_i$ à support réduit sur chacun des $N$ noeuds du maillage.
+
+\subsubsection{Formulation faible}
+En projetant l'équation de Laplace sur $\beta_i$ on obtient:
+
+\[
+\int_{D} \beta_i \Delta V d^3r = 0
+\]
+Or:
+\[
+div(\beta_i \overrightarrow{grad}V) = \overrightarrow{grad}\beta_i\overrightarrow{grad}V + \beta_i \Delta V
+\]
+Soit:
+\[
+\int_{D} \left( div(\beta_i \overrightarrow{grad}V) - \overrightarrow{grad}\beta_i\overrightarrow{grad}V \right) d^3r = 0
+\]
+D'après le théorème de Green-Ostrogradski on obtient:
+\[
+\oiint_{\partial D} \beta_i \overrightarrow{grad}V d\vec{S} - \int_{D} \vec{\nabla} \beta_i \vec{\nabla} V d^3 r = 0
+\]
+
+\subsubsection{Conditions aux limites}
+Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=20000$ Volts et que le tube est relié à la masse. Ces conditions nous donnent:
+
+\[
+\begin{cases}
+V(r=0,z) = V_0 = 20000 \\
+V(r=R_2,z) = 0
+\end{cases}
+\]
+
+De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditions de Neumann à ses extrémités. Les extrémités du tube étant suffisamment éloignés des extrémités du fil, on peut considérer que le potentiel est constant, ce qui revient à dire que:
+
+\[
+\frac{\partial V, \partial \vec{n} } = \overrightarrow{grad} V \cdot \vec{n} = 0
+\]
+
+La formulation faible devient donc:
+
+\[
+\int_{D} \vec{\nabla} \beta_i \vec{\nabla} V d^3 r = 0
+\]
 
 \section{discution}
 
