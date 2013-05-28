@@ -21,7 +21,72 @@
 \begin{document}
 \maketitle
 
-\section{introduction}
+Un électron soumis à un champ électromagnétique est soumis à la force de Lorentz qui contient une composante due au champ électrique et une autre due au champ magnétique. Seule la partie électrique est capable de fournir du travail à l'électron et donc de l'accélérer. Un électron dans un champ électrique a donc une trajectoire qui dépent à la fois des conditions initiales (position et vitesse) et du champ électrique appliqué.
+
+\section{Position du problème}
+
+Le système étudié est un guide d'électrons. Des électrons sont émis depuis une source et sont "guidés" jusqu'à un détecteur dans un système coaxial. Le guide est constitué d'un fil porté au potentiel $V_0$ et d'un cylindre métallique mis à la masse. La symmétrie du problème nous motive à travailler dans un trièdre de coordonnées cylindriques d'axe le fil. Un schéma du dispositif est présenté sur la figure \ref{fig:schema}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.5]
+
+%fil
+\draw [very thick] (-5,0) -- (5,0);
+\draw [-] (5,0) -- (5,4);
+\path (5,4) node [anchor = south west] {$V_0$};
+
+%deteceur source
+\draw [thick, red] (-5.1,-1) -- (-5.1,1);
+\draw [thick, red] (5.1,-1) -- (5.1,1);
+
+
+%cylindre
+\draw [-] (-10,-2) -- (10,-2);
+\draw [-] (-10,2) -- (10,2);
+\draw [-] (10,2) -- (10,4);
+\draw [-] (9.625,4) -- (10.375,4);
+\foreach \i in {1,...,7}						%masse
+	{\draw [-] (9.5 + 0.125*\i,4) -- (9.75 + 0.125*\i,4.25);
+	}
+
+
+
+%axes
+\draw [dashed, ->] (-8,0) -- (8,0);
+\draw [dashed, ->] (0,0) -- (0,3);
+\path (8,0) node [anchor = west] {$z$};
+\path ((0,3) node [anchor = south] {$r$};
+\path (0,0) node [anchor = north] {$(0,0)$};
+
+%electron
+\fill (-3.5,1) circle (0.7mm);
+\path (-3.5,1) node [anchor = south west] {$e^-$}; 
+
+%longeurs
+\draw [->] (-11,0) -- (-11,2);
+\path (-11,1) node [anchor = east] {$R_2$};
+\draw [<-] (-5,-3) -- (-0.4,-3);
+\draw [->] (0.4,-3) -- (5,-3);
+\path (0,-3) node {$L$}; 
+
+\end{tikzpicture}
+\caption{Schéma du guide d'électrons}
+\label{fig:schema}
+\end{figure}
+Le rayon du cylindre est $R_2 = 3.5 \mathrm{cm}$, le rayon du fil est $R_1 = 0.15 \mathrm{cm}$. La longueur du fil (et donc du guide) est $L = 1 \mathrm{cm}$.
+
+L'étude de la trajectoire des électrons dans le guide nécessite la connaissance du champ électrique dans ce dernier. Nous allons donc commencer par déterminer le champ électrique dans le guide avant de s'intéresser à notre problème qui concerne la trajectoire des électrons.
+
+\subsection{Une première détermination du champ électrique dans le guide}
+
+On commence par envisager un modèle simple, qui consiste à dire que le tube est suffisamment grand pour pouvoir négliger les effets de bords (on aura l'occasion de revenir sur cette hypothèse). On va donc considérer que le tube est infini. Le problème présente alors des symétries intéressantes.
+
+En premier lieu on déduit des invariances par translation selon l'axe $z$ et par rotation autour de ce même axe que le champ électrique $\mathbf{E}$ ne dépend pas des coordonnées $z$ et $\theta$. Soit maintenant un point $M$ à l'intérieur du cylindre, il appartient à deux plans de symétrie du problème (l'un contenant l'axe $z$ et l'autre perpendiculaire à ce même axe), on en déduit que le champ électrique au point $M$ est contenu dans ces deux plans. Le champ électrique dans le cylindre est donc de la forme
+\begin{equation}
+\mathbf{E} = E(r) \mathbf{e_r}
+\end{equation} 
+
 
 
 \section{partie analytique}
