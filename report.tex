@@ -13,8 +13,8 @@
 \geometry{dvips,a4paper,margin=1.5in}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
-\title{Etude des trajectoires Ã©lectroniques dans un guide par la mÃ©thode des Ã©lÃ©ments finis}
-\author{Elie GÃ©nard, FÃ©lix Tora}
+\title{Etude des trajectoires électroniques dans un guide par la méthode des éléments finis}
+\author{Elie Génard, Félix Tora}
 \date{Mai 2013}
 
 
@@ -27,7 +27,31 @@
 \section{partie analytique}
 
 
-\section{effets de bords et rÃ©solution}
+\section{Modélisation du champ dans le guide}
+\subsection{Modèle simplifié ne tenant pas compte des effets de bord}
+
+\subsection{Modèle simplifié tenant compte des effets de bord}
+
+\subsubsection{Présentation de l'équation à résoudre}
+On suppose maintenant que le dispositif n'est plus de longueur infinie, ce qui fait apparaître des effets de bord et nous empêche donc de résoudre analytiquement l'équation de Laplace ($\Delta V=0$). Cependant on peut tout de même simplifier le problème en admettant que le potentiel est à symétrie cylindrique, c'est à dire que $V$ est invariant selon $\theta$. On doit donc résoudre numériquement l'équation suivante:
+
+\[
+\Delta V(r,z)=0
+\]
+Soit:
+\[
+\frac{\partial^2 V,\partial r^2}+\frac{1,r}\frac{\partial V, \partial r}+\frac{\partial^2 V,\partial z^2}=0
+\]
+
+\subsubsection{Limites du modèle}
+On remarquera que dans ce modèle on ne prend pas en compte le fil d'arrivée de potentiel qui en réalité déforme le potentiel à l'intérieur du tube. On ne prend pas non plus en compte le fil qui connecte le tube à la masse car nous travaillons à l'intérieur du cylindre et il n'a donc aucune influence.
+
+\subsubsection{Modèle numérique}
+Afin de résoudre numériquement l'équation de Laplace, on utilise la méthode des éléments finis dans l'approximation de Galerkin qui consiste à pondérer l'équation aux dérivées partielles par une fonction test $\beta_i$ à support réduit sur chacun des $N$ noeuds du maillage.
+
+\subsubsection{Conditions aux limites}
+Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=20000$ Volts et que le tube est relié à la masse. De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditions de Neumann à ses extrémités.
+
 
 
 \section{discution}
