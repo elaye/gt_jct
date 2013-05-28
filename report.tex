@@ -69,9 +69,26 @@ D'après le théorème de Green-Ostrogradski on obtient:
 \]
 
 \subsubsection{Conditions aux limites}
-Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=20000$ Volts et que le tube est relié à la masse. De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditions de Neumann à ses extrémités.
+Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=20000$ Volts et que le tube est relié à la masse. Ces conditions nous donnent:
 
+\[
+\begin{cases}
+V(r=0,z) = V_0 = 20000 \\
+V(r=R_2,z) = 0
+\end{cases}
+\]
 
+De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditions de Neumann à ses extrémités. Les extrémités du tube étant suffisamment éloignés des extrémités du fil, on peut considérer que le potentiel est constant, ce qui revient à dire que:
+
+\[
+\frac{\partial V, \partial \vec{n} } = \overrightarrow{grad} V \cdot \vec{n} = 0
+\]
+
+La formulation faible devient donc:
+
+\[
+\int_{D} \vec{\nabla} \beta_i \vec{\nabla} V d^3 r = 0
+\]
 
 \section{discution}
 
