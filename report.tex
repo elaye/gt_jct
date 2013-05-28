@@ -49,6 +49,25 @@ On remarquera que dans ce modèle on ne prend pas en compte le fil d'arrivée de p
 \subsubsection{Modèle numérique}
 Afin de résoudre numériquement l'équation de Laplace, on utilise la méthode des éléments finis dans l'approximation de Galerkin qui consiste à pondérer l'équation aux dérivées partielles par une fonction test $\beta_i$ à support réduit sur chacun des $N$ noeuds du maillage.
 
+\subsubsection{Formulation faible}
+En projetant l'équation de Laplace sur $\beta_i$ on obtient:
+
+\[
+\int_{D} \beta_i \Delta V d^3r = 0
+\]
+Or:
+\[
+div(\beta_i \overrightarrow{grad}V) = \overrightarrow{grad}\beta_i\overrightarrow{grad}V + \beta_i \Delta V
+\]
+Soit:
+\[
+\int_{D} \left( div(\beta_i \overrightarrow{grad}V) - \overrightarrow{grad}\beta_i\overrightarrow{grad}V \right) d^3r = 0
+\]
+D'après le théorème de Green-Ostrogradski on obtient:
+\[
+\oiint_{\partial D} \beta_i \overrightarrow{grad}V d\vec{S} - \int_{D} \vec{\nabla} \beta_i \vec{\nabla} V d^3 r = 0
+\]
+
 \subsubsection{Conditions aux limites}
 Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=20000$ Volts et que le tube est relié à la masse. De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditions de Neumann à ses extrémités.
 
