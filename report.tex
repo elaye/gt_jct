@@ -1,3 +1,5 @@
+%%!TEX encoding = UTF-8 Unicode
+
 \documentclass[a4paper,12pt]{article}
 \usepackage{geometry}
 \usepackage{graphicx}
@@ -13,8 +15,8 @@
 \geometry{dvips,a4paper,margin=1.5in}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
-\title{Etude des trajectoires �lectroniques dans un guide par la m�thode des �l�ments finis}
-\author{Elie G�nard, F�lix Tora}
+\title{Etude des trajectoires électroniques dans un guide par la méthode des éléments finis}
+\author{Elie Génard, Félix Tora}
 \date{Mai 2013}
 
 
@@ -23,9 +25,9 @@
 
 Un électron soumis à un champ électromagnétique est soumis à la force de Lorentz qui contient une composante due au champ électrique et une autre due au champ magnétique. Seule la partie électrique est capable de fournir du travail à l'électron et donc de l'accélérer. Un électron dans un champ électrique a donc une trajectoire qui dépent à la fois des conditions initiales (position et vitesse) et du champ électrique appliqué.
 
-\section{Position du problème}
+\section{Position du probléme}
 
-Le système étudié est un guide d'électrons. Des électrons sont émis depuis une source et sont "guidés" jusqu'à un détecteur dans un système coaxial. Le guide est constitué d'un fil porté au potentiel $V_0$ et d'un cylindre métallique mis à la masse. La symmétrie du problème nous motive à travailler dans un trièdre de coordonnées cylindriques d'axe le fil. Un schéma du dispositif est présenté sur la figure \ref{fig:schema}.
+Le systéme étudié est un guide d'électrons. Des électrons sont émis depuis une source et sont "guidés" jusqu'à un détecteur dans un systéme coaxial. Le guide est constitué d'un fil porté au potentiel $V_0$ et d'un cylindre métallique mis à la masse. La symmétrie du probléme nous motive à travailler dans un triédre de coordonnées cylindriques d'axe le fil. Un schéma du dispositif est présenté sur la figure \ref{fig:schema}.
 
 \begin{figure}[h]
 \centering
@@ -76,30 +78,30 @@ Le système étudié est un guide d'électrons. Des électrons sont émis depuis
 \end{figure}
 Le rayon du cylindre est $R_2 = 3.5 \mathrm{cm}$, le rayon du fil est $R_1 = 0.15 \mathrm{cm}$. La longueur du fil (et donc du guide) est $L = 1 \mathrm{cm}$.
 
-L'étude de la trajectoire des électrons dans le guide nécessite la connaissance du champ électrique dans ce dernier. Nous allons donc commencer par déterminer le champ électrique dans le guide avant de s'intéresser à notre problème qui concerne la trajectoire des électrons.
+L'étude de la trajectoire des électrons dans le guide nécessite la connaissance du champ électrique dans ce dernier. Nous allons donc commencer par déterminer le champ électrique dans le guide avant de s'intéresser à notre probléme qui concerne la trajectoire des électrons.
 
-\section{Modèle simplifié du champ dans le guide}
+\section{Modéle simplifié du champ dans le guide}
 
 
-On commence par envisager un modèle simple, qui consiste à dire que le tube est suffisamment grand pour pouvoir négliger les effets de bords (on aura l'occasion de revenir sur cette hypothèse). On va donc considérer que le tube est infini. Le problème présente alors des symétries intéressantes.
+On commence par envisager un modéle simple, qui consiste à dire que le tube est suffisamment grand pour pouvoir négliger les effets de bords (on aura l'occasion de revenir sur cette hypothése). On va donc considérer que le tube est infini. Le probléme présente alors des symétries intéressantes.
 
 
 \subsection{Détermination du champ électrique et du potentiel dans le guide}
 
-En premier lieu on déduit des invariances par translation selon l'axe $z$ et par rotation autour de ce même axe que le champ électrique $\mathbf{E}$ et le potentiel $V$ ne dépendent pas des coordonnées $z$ et $\theta$. Soit maintenant un point $M$ à l'intérieur du cylindre, il appartient à deux plans de symétrie du problème (l'un contenant l'axe $z$ et l'autre perpendiculaire à ce même axe), on en déduit que le champ électrique au point $M$ est contenu dans ces deux plans. Le champ électrique dans le cylindre est donc de la forme
+En premier lieu on déduit des invariances par translation selon l'axe $z$ et par rotation autour de ce même axe que le champ électrique $\mathbf{E}$ et le potentiel $V$ ne dépendent pas des coordonnées $z$ et $\theta$. Soit maintenant un point $M$ à l'intérieur du cylindre, il appartient à deux plans de symétrie du probléme (l'un contenant l'axe $z$ et l'autre perpendiculaire à ce même axe), on en déduit que le champ électrique au point $M$ est contenu dans ces deux plans. Le champ électrique dans le cylindre est donc de la forme
 \begin{eqnarray}
 \mathbf{E} &=& E(r) \mathbf{e_r}\\
 V &=& V(r)
 \end{eqnarray}
 
-Un théorème de Gauss appliqué sur un cylindre d'axe $z$ nous donne pour le champ électrique et donc le pour le potentiel
+Un théoréme de Gauss appliqué sur un cylindre d'axe $z$ nous donne pour le champ électrique et donc le pour le potentiel
 \begin{eqnarray}
 E(r) &=& \frac{\rho}{2 \pi \varepsilon_0 r}\\
 V(r) &= &-\frac{\rho}{2 \pi \varepsilon_0} \ln(r) + C
 \end{eqnarray}
 où $\rho$ est la densité linéique de charges portée par le fil et $C$ une constante d'intégration à déterminer.
 
-Les données du problème nous assurent que $V(R_2) - V(R_1) = V_0$, on en déduit ainsi l'expression de $\rho$ pour trouver le champ électrique et le potentiel
+Les données du probléme nous assurent que $V(R_2) - V(R_1) = V_0$, on en déduit ainsi l'expression de $\rho$ pour trouver le champ électrique et le potentiel
 \begin{eqnarray}
 \mathbf{E} &=& \frac{V_0}{\ln(\frac{R_2}{R_1})r} \mathbf{e_r}\\
 V(r) &=& V_0 \frac{\ln(R_2) - \ln(r)}{\ln(R_2) - \ln(R_1)} 
@@ -107,7 +109,7 @@ V(r) &=& V_0 \frac{\ln(R_2) - \ln(r)}{\ln(R_2) - \ln(R_1)}
 
 \subsection{Equations de la trajectoire de l'électron}
 
-Une fois une expression analytique du champ déterminée, il est relativement aisé d'écrire les équations du mouvement de l'électron dans le guide. Comme déjà suggéré, l'électron est soumis à la force de Lorentz et donc, dans notre système de coordonnées, le principe fondamental de la dynamique s'écrit de la manière suivante :
+Une fois une expression analytique du champ déterminée, il est relativement aisé d'écrire les équations du mouvement de l'électron dans le guide. Comme déjà suggéré, l'électron est soumis à la force de Lorentz et donc, dans notre systéme de coordonnées, le principe fondamental de la dynamique s'écrit de la maniére suivante :
 \begin{eqnarray}
 \ddot{r} - r \dot{\theta}^2 &=& \frac{e V_0}{m_e \ln(\frac{R_2}{R_1}) r} \\
 r \ddot{\theta} + 2 \dot{r} \dot{\theta} &=& 0\\
@@ -124,67 +126,67 @@ Notre choix s'est d'abord porté sur une méthode de résolution d'équations di
 \section{partie analytique}
 
 
-\section{Mod�lisation du champ dans le guide}
-\subsection{Mod�le simplifi� ne tenant pas compte des effets de bord}
+\section{Modélisation du champ dans le guide}
+\subsection{Modèle simplifié ne tenant pas compte des effets de bord}
 
-\subsection{Mod�le simplifi� tenant compte des effets de bord}
+\subsection{Modèle simplifié tenant compte des effets de bord}
 
-\subsubsection{Pr�sentation de l'�quation � r�soudre}
-On suppose maintenant que le dispositif n'est plus de longueur infinie, ce qui fait appara�tre des effets de bord et nous emp�che donc de r�soudre analytiquement l'�quation de Laplace ($\Delta V=0$). Cependant on peut tout de m�me simplifier le probl�me en admettant que le potentiel est � sym�trie cylindrique, c'est � dire que $V$ est invariant selon $\theta$. On doit donc r�soudre num�riquement l'�quation suivante:
+\subsubsection{Présentation de l'équation à résoudre}
+On suppose maintenant que le dispositif n'est plus de longueur infinie, ce qui fait apparaÓtre des effets de bord et nous empÍche donc de résoudre analytiquement l'équation de Laplace ($\Delta V=0$). Cependant on peut tout de mÍme simplifier le problème en admettant que le potentiel est à symétrie cylindrique, c'est à dire que $V$ est invariant selon $\theta$. On doit donc résoudre numériquement l'équation suivante:
 
 \[
 \Delta V(r,z)=0
 \]
 Soit:
 \[
-\frac{\partial^2 V,\partial r^2}+\frac{1,r}\frac{\partial V, \partial r}+\frac{\partial^2 V,\partial z^2}=0
+\frac{\partial^2 V}{\partial r^2}+\frac{1}{r}\frac{\partial V}{ \partial r}+\frac{\partial^2 V}{\partial z^2}=0
 \]
 
-\subsubsection{Limites du mod�le}
-On remarquera que dans ce mod�le on ne prend pas en compte le fil d'arriv�e de potentiel qui en r�alit� d�forme le potentiel � l'int�rieur du tube. On ne prend pas non plus en compte le fil qui connecte le tube � la masse car nous travaillons � l'int�rieur du cylindre et il n'a donc aucune influence.
+\subsubsection{Limites du modéle}
+On remarquera que dans ce modéle on ne prend pas en compte le fil d'arrivée de potentiel qui en réalité déforme le potentiel à l'intérieur du tube. On ne prend pas non plus en compte le fil qui connecte le tube à la masse car nous travaillons à l'intérieur du cylindre et il n'a donc aucune influence.
 
-\subsubsection{Mod�le num�rique}
-Afin de r�soudre num�riquement l'�quation de Laplace, on utilise la m�thode des �l�ments finis dans l'approximation de Galerkin qui consiste � pond�rer l'�quation aux d�riv�es partielles par une fonction test $\beta_i$ � support r�duit sur chacun des $N$ noeuds du maillage.
+\subsubsection{Modèle numérique}
+Afin de résoudre numériquement l'équation de Laplace, on utilise la méthode des éléments finis dans l'approximation de Galerkin qui consiste à pondérer l'équation aux dérivées partielles par une fonction test $\beta_i$ à support réduit sur chacun des $N$ noeuds du maillage.
 
 \subsubsection{Formulation faible}
-En projetant l'�quation de Laplace sur $\beta_i$ on obtient:
+En projetant l'équation de Laplace sur $\beta_i$ on obtient:
 
 \[
 \int_{D} \beta_i \Delta V d^3r = 0
 \]
 Or:
 \[
-div(\beta_i \overrightarrow{grad}V) = \overrightarrow{grad}\beta_i\overrightarrow{grad}V + \beta_i \Delta V
+div(\beta_i \nabla V) = \nabla \beta_i \cdot \nabla V + \beta_i \Delta V
 \]
 Soit:
 \[
-\int_{D} \left( div(\beta_i \overrightarrow{grad}V) - \overrightarrow{grad}\beta_i\overrightarrow{grad}V \right) d^3r = 0
+\int_{D} \left( div(\beta_i \nabla V) - \nabla\beta_i \cdot \nabla V \right) d^3r = 0
 \]
-D'apr�s le th�or�me de Green-Ostrogradski on obtient:
+D'après le théorème de Green-Ostrogradski on obtient :
 \[
-\oiint_{\partial D} \beta_i \overrightarrow{grad}V d\vec{S} - \int_{D} \vec{\nabla} \beta_i \vec{\nabla} V d^3 r = 0
+\oint_{\partial D} \beta_i \nabla V d\vec{S} - \int_{D} \nabla \cdot \beta_i \nabla V d^3 r = 0
 \]
 
 \subsubsection{Conditions aux limites}
-Les conditions aux limites � appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fix� � $V_0=20000$ Volts et que le tube est reli� � la masse. Ces conditions nous donnent:
+Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=20000$ Volts et que le tube est relié à la masse. Ces conditions nous donnent:
+
+
+
+\begin{eqnarray}
+V(0,z) &=& V_0 \\
+V(R_2,z) &=& 0
+\end{eqnarray}
+
+
+De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditions de Neumann à ses extrémités. Les extrémités du tube étant suffisamment éloignés des extrémités du fil, on peut considérer que le potentiel est constant, ce qui revient à dire que:
 
 \[
-\begin{cases}
-V(r=0,z) = V_0 = 20000 \\
-V(r=R_2,z) = 0
-\end{cases}
+\frac{\partial V}{\partial \vec{n} } = \nabla V \cdot \vec{n} = 0
 \]
-
-De plus, puisque l'on consid�re un cylindre ouvert, on va appliquer des conditions de Neumann � ses extr�mit�s. Les extr�mit�s du tube �tant suffisamment �loign�s des extr�mit�s du fil, on peut consid�rer que le potentiel est constant, ce qui revient � dire que:
-
-\[
-\frac{\partial V, \partial \vec{n} } = \overrightarrow{grad} V \cdot \vec{n} = 0
-\]
-
 La formulation faible devient donc:
 
 \[
-\int_{D} \vec{\nabla} \beta_i \vec{\nabla} V d^3 r = 0
+\int_{D} \nabla \beta_i \cdot \nabla V d^3 r = 0
 \]
 
 \section{discution}
