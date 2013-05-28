@@ -82,12 +82,24 @@ L'étude de la trajectoire des électrons dans le guide nécessite la connaissan
 
 On commence par envisager un modèle simple, qui consiste à dire que le tube est suffisamment grand pour pouvoir négliger les effets de bords (on aura l'occasion de revenir sur cette hypothèse). On va donc considérer que le tube est infini. Le problème présente alors des symétries intéressantes.
 
-En premier lieu on déduit des invariances par translation selon l'axe $z$ et par rotation autour de ce même axe que le champ électrique $\mathbf{E}$ ne dépend pas des coordonnées $z$ et $\theta$. Soit maintenant un point $M$ à l'intérieur du cylindre, il appartient à deux plans de symétrie du problème (l'un contenant l'axe $z$ et l'autre perpendiculaire à ce même axe), on en déduit que le champ électrique au point $M$ est contenu dans ces deux plans. Le champ électrique dans le cylindre est donc de la forme
-\begin{equation}
-\mathbf{E} = E(r) \mathbf{e_r}
-\end{equation} 
+En premier lieu on déduit des invariances par translation selon l'axe $z$ et par rotation autour de ce même axe que le champ électrique $\mathbf{E}$ et le potentiel $V$ ne dépendent pas des coordonnées $z$ et $\theta$. Soit maintenant un point $M$ à l'intérieur du cylindre, il appartient à deux plans de symétrie du problème (l'un contenant l'axe $z$ et l'autre perpendiculaire à ce même axe), on en déduit que le champ électrique au point $M$ est contenu dans ces deux plans. Le champ électrique dans le cylindre est donc de la forme
+\begin{eqnarray}
+\mathbf{E} &=& E(r) \mathbf{e_r}\\
+V &=& V(r)
+\end{eqnarray}
 
+Un théorème de Gauss appliqué sur un cylindre d'axe $z$ nous donne pour le champ électrique et donc le pour le potentiel
+\begin{eqnarray}
+E(r) &=& \frac{\rho}{2 \pi \varepsilon_0 r}\\
+V(r) &= &-\frac{\rho}{2 \pi \varepsilon_0} \ln(r) + C
+\end{eqnarray}
+où $\rho$ est la densité linéique de charges portée par le fil et $C$ une constante d'intégration à déterminer.
 
+Les données du problème nous assurent que $V(R_2) - V(R_1) = V_0$, on en déduit ainsi l'expression de $\rho$ pour trouver le champ électrique et le potentiel
+\begin{eqnarray}
+\mathbf{E} &=& \frac{V_0}{\ln(\frac{R_2}{R_1})r} \mathbf{e_r}\\
+V(r) &=& V_0 \frac{\ln(R_2) - \ln(r)}{\ln(R_2) - \ln(R_1)} 
+\end{eqnarray}
 
 \section{partie analytique}
 
