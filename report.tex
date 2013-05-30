@@ -165,7 +165,13 @@ z_0 &=& -\SI{0,5}{m} \label{ci:5}\\
 
 
 
-\paragraph{Présentation des résultats} Le tracé de la trajectoire obtenue est présenté sur la figure 3423523523. On observe une trajectoire hélicoïdale qui correspond bien à l'idée que l'on peut se faire d'un guide d'électrons. Une fois émis, les électrons (qui possèdent les conditions initiales décrites précédemment), vont avoir une trajectoire hélicoïdale autour de l'axe $z$, à savoir le fil mis au potentiel $V_0$.
+\paragraph{Présentation des résultats} Le tracé de la trajectoire obtenue est présenté sur la figure \ref{fir:t_3d}. On observe une trajectoire hélicoïdale qui correspond bien à l'idée que l'on peut se faire d'un guide d'électrons. Une fois émis, les électrons (qui possèdent les conditions initiales décrites précédemment), vont avoir une trajectoire hélicoïdale autour de l'axe $z$, à savoir le fil mis au potentiel $V_0$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=6cm]{images/t_3D.png}
+\label{fig:t_3d}
+\end{figure}
 
 
 
@@ -321,16 +327,17 @@ for je=1:NBN
    dalphaj_dx = gauss.dalpha_dx(je, npi);
    dalphaj_dy = gauss.dalpha_dy(je, npi);
    gradai_gradaj=dalphai_dx*dalphaj_dx+dalphai_dy*dalphaj_dy;
-   AE(ie,je) = AE(ie,je) + 2*pi*gradai_gradaj*pds(npi)*detJ(npi)*yg(npi);
+   AE(ie,je) = AE(ie,je)
+   				+ 2*pi*gradai_gradaj*pds(npi)*detJ(npi)*yg(npi);
 end;
 \end{verbatim}
-\caption{Extrait de integrales.m}
+\caption{Extrait de \emph{integrales.m}}
 \end{figure}
 %         end;
 %      end;    
 %   end;
 
-La fonction \verb|assemblage.m| reconstitue la matrice A, la fonction conditions.m applique les conditions de Dirichlet à notre système en utilisant les fichiers \verb|.pro|. Une fois les calculs effectués, \verb|solution.m| s'occupe d'afficher les résultats de la simulation.
+La fonction \verb|assemblage.m| reconstitue la matrice A. Les conditions de Dirichlet sont appliquées, par la fonction \verb|conditions.m|, à notre système en utilisant les fichiers \verb|.pro|. Une fois les calculs effectués, \verb|solution.m| s'occupe d'afficher les résultats de la simulation.
 
 %...
 
