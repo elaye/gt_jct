@@ -165,9 +165,16 @@ z_0 &=& -\SI{0,5}{m} \label{ci:5}\\
 
 
 
-\paragraph{Présentation des résultats} Le tracé de la trajectoire obtenue est présenté sur la figure 3423523523. On observe une trajectoire hélicoïdale qui correspond bien à l'idée que l'on peut se faire d'un guide d'électrons. Une fois émis, les électrons (qui possèdent les conditions initiales décrites précédemment), vont avoir une trajectoire hélicoïdale autour de l'axe $z$, à savoir le fil mis au potentiel $V_0$.
+\paragraph{Présentation des résultats} Le tracé de la trajectoire obtenue est présenté sur la figure \ref{fig:t_3d}. On observe une trajectoire hélicoïdale qui correspond bien à l'idée que l'on peut se faire d'un guide d'électrons. Une fois émis, les électrons (qui possèdent les conditions initiales décrites précédemment), vont avoir une trajectoire hélicoïdale autour de l'axe $z$, à savoir le fil mis au potentiel $V_0$.
 
+\begin{figure}[h]
+\centering
+\includegraphics[height=6cm]{images/t_3D.png}
+\caption{Trajectoire d'un électron dans le potentiel sans effets de bords}
+\label{fig:t_3d}
+\end{figure}
 
+Ce résultat est encourageant car il montre d'une certaine manière que notre méthode de résolution des équations différentielles est opérationnelle. Elle pourra être utilisée pour calculer des trajectoires dans des cas où le potentiel et le champs auront été déterminé autrement.
 
 
 \section{Modèle simplifié tenant compte des effets de bord}
@@ -321,16 +328,17 @@ for je=1:NBN
    dalphaj_dx = gauss.dalpha_dx(je, npi);
    dalphaj_dy = gauss.dalpha_dy(je, npi);
    gradai_gradaj=dalphai_dx*dalphaj_dx+dalphai_dy*dalphaj_dy;
-   AE(ie,je) = AE(ie,je) + 2*pi*gradai_gradaj*pds(npi)*detJ(npi)*yg(npi);
+   AE(ie,je) = AE(ie,je)
+   				+ 2*pi*gradai_gradaj*pds(npi)*detJ(npi)*yg(npi);
 end;
 \end{verbatim}
-\caption{Extrait de integrales.m}
+\caption{Extrait de \emph{integrales.m}}
 \end{figure}
 %         end;
 %      end;    
 %   end;
 
-La fonction \verb|assemblage.m| reconstitue la matrice A, la fonction conditions.m applique les conditions de Dirichlet à notre système en utilisant les fichiers \verb|.pro|. Une fois les calculs effectués, \verb|solution.m| s'occupe d'afficher les résultats de la simulation.
+La fonction \verb|assemblage.m| reconstitue la matrice A. Les conditions de Dirichlet sont appliquées, par la fonction \verb|conditions.m|, à notre système en utilisant les fichiers \verb|.pro|. Une fois les calculs effectués, \verb|solution.m| s'occupe d'afficher les résultats de la simulation.
 
 %...
 
@@ -396,7 +404,18 @@ On voit sur le tracé de gauche que dans ce cas là on observe bien des effets d
 
 Une fois que l'on a un programme qui donne la trajectoire de l'électron dans un potentiel et un programme qui détermine le potentiel dans le tube en tenant compte des effets de bord, on peut combiner ces deux programmes pour obtenir la trajectoire de l'électron dans un potentiel déterminé numériquement. La fonction \verb|pick.m| permet de récupérer le potentiel en un point à l'intérieur du cylindre, ce qui va nous permettre de calculer la trajectoire de l'électron dans le tube.
 
-On utilise la méthode RK4 (vue au \ref{subsection:lol}) pour résoudre le système différentiel.
+On utilise la méthode RK4 (vue au \ref{subsection:lol}) pour résoudre le système différentiel, sauf qu'ici les valeurs du potentiel et du gradient de potentiel ne sont plus données par une formule analytique mais par un programme qui les calcules à partir de la résolutions éléments finis. Un tracé de la trajectoire vu en $xy$ est présenté sur la figure \ref{fig:elie_encule}, les conditions initiales et les paramètres de calculs sont les mêmes que ceux utilisés au \ref{subsection:lol}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=6cm]{images/t_num_xy.png}
+\caption{Trajectoire d'un électron projetée sur un plan $z=\mathrm{cste}$}
+\label{fig:elie_encule}
+\end{figure}
+
+Dans ce cas, la trajectoire est proche d'une hélice, on voit par contre les effets dus aux inhomogénéités du potentiel car l'hélice n'est plus <<circulaire>>.
+
+
 
 \subsection{Energie potentielle effective}
 
@@ -412,7 +431,7 @@ Comme dans le cas de l'étude d'un mouvement planétaire, on va définir l'éner
 \[
 E_{\mathrm{eff}} = \frac 1 2 m r^2 \dot{\theta}^2 -e V
 \]
-On calcule numériquement cette grandeur en chaque point de la trajectoire. On trace ensuite l'énergie potentielle effective en fonction des deux coordonnées $r$ et $z$, pour obtenir un résultat comme celui de la figure \ref{fig:lolilolilol}. Cette cuvette est à comparer à l'énergie totale (qui est une constante) pour connaître les limites spatiales du mouvement.
+On calcule numériquement cette grandeur en chaque point de la trajectoire. On trace ensuite l'énergie potentielle effective en fonction des deux coordonnées $r$ et $z$, pour obtenir un résultat comme ceux des figures \ref{f Eeff_3d} et \ref{f Eeff}. Cette cuvette est à comparer à l'énergie totale (qui est une constante) pour connaître les limites spatiales du mouvement.
 
 \begin{figure}[h]
    \begin{minipage}[c]{.49\linewidth}
@@ -429,14 +448,15 @@ On calcule numériquement cette grandeur en chaque point de la trajectoire. On t
    \label{f Eeff}
 \end{figure}
 
-%La Figure \ref{f Eeff} montre le tracé de cette énergie potentielle effective.
+On peut faire plusieurs commentaires sur les deux courbes des figures \ref{f Eeff}. Elles présentent bien un aspect de <<cuvette>> mais sont particulièrement bruitées. Nous avons procédés à plusieurs essais pour tenter d'obtenir de meilleurs résultats. Nous avons d'abord augmenté le nombre de plus proches voisins utilisé dans le fichier \verb|pick.m|, sans résultat significatif. Nous avons aussi tenté de diminuer la valeur du pas d'intégration (qui était dans ce cas $1.10^{-12}$), comme déjà indiqué une telle diminution entraîne des calculs interminables.
 
-%\begin{figure}[h]
-%\centering
-%\includegraphics[width=1\textwidth,height=0.25 \textwidth]{images/Eeff}
-%\caption{Energie potentielle effective}
-%\label{f Eeff}
-%\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=6cm]{images/Eeff_3d_ci_ 2.png}
+\caption{Energie potentielle effective}
+\label{f Eeff}
+\end{figure}
 
 \section{discussion}
 
