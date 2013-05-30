@@ -265,7 +265,7 @@ Les intégrales sont calculées en utilisant la méthode de Gauss ce qui donne p
 %            BE(ie) =  0;
 \begin{figure}[h]
 \begin{verbatim}
-%Boucle sur chaque noeud de l'élément  
+% Boucle sur chaque noeud de l'élément  
 for je=1:NBN
    alphaj = gauss.alpha(je, npi);
    dalphaj_dx = gauss.dalpha_dx(je, npi);
@@ -343,11 +343,34 @@ Après simulation, nous observons un profil de potentiel donné par les Figures 
 
 Une fois que l'on a un programme qui donne la trajectoire de l'électron dans un potentiel et un programme qui détermine le potentiel dans le tube en tenant compte des effets de bord, on peut combiner ces deux programmes pour obtenir la trajectoire de l'électron dans un potentiel déterminé numériquement. La fonction pick.m permet de récupérer le potentiel en un point à l'intérieur du cylindre, ce qui va nous permettre de calculer la trajectoire de l'électron dans le tube.
 
+\section{Energie effective}
+L'énergie de l'électron peut s'écrire de la manière suivante:
+\[
+E = \frac 1 2 mv^2 - eV
+\]
+Soit:
+\[
+E = \frac 1 2 m \dot{r}^2 + \frac 1 2 m \dot{z}^2 + \frac 1 2 m r^2 \dot{\theta}^2 - e V
+\]
+On peut donc définir une énergie potentielle effective de la forme:
+\[
+E_{eff} = \frac 1 2 m r^2 \dot{\theta}^2 -e V
+\]
+
+%La Figure \ref{f Eeff} montre le tracé de cette énergie potentielle effective.
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=1\textwidth,height=0.25 \textwidth]{images/Eeff}
+%\caption{Energie potentielle effective}
+%\label{f Eeff}
+%\end{figure}
+
 \section{discussion}
 
 
 
-\section{conclusion}
+\section{Conclusion}
 
 
 
