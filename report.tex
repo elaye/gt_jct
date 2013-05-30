@@ -8,6 +8,7 @@
 \usepackage{xspace}
 \usepackage{tikz,ifthen,fullpage}
 \usepackage{xcolor}
+\usepackage{sistyle}
 \usepackage{epstopdf}
 \usepackage[frenchb]{babel}
 \usepackage[utf8]{inputenc}
@@ -115,12 +116,58 @@ Une fois une expression analytique du champ déterminée, il est relativement ai
 \ddot{r} - r \dot{\theta}^2 &=& \frac{e V_0}{m_e \ln(\frac{R_2}{R_1}) r} \\
 r \ddot{\theta} + 2 \dot{r} \dot{\theta} &=& 0\\
 \ddot{z} &=& 0
+\label{eq:sys}
 \end{eqnarray}
 Ces équations écrites il nous faut choisir une méthode numérique pour calculer leur trajectoire.
 
 \subsection{Calcul de la trajectoire de l'électron}
 
-Notre choix s'est d'abord porté sur une méthode de résolution d'équations différentielles à pas fixe : la méthode de Runge-Kutta d'ordre 4. Elle est relativement simple à implémenter et tout aussi relativement précise.
+Notre choix s'est d'abord porté sur une méthode de résolution d'équations différentielles à pas fixe : la méthode de Runge-Kutta d'ordre 4. Elle est relativement simple à implémenter et aussi relativement précise.
+
+\paragraph{Système différentiel} Cette méthode permet de résoudre des équations différentielles du premier ordre, on doit donc mettre le système différentiel sous la forme d'une équation vectorielle du premier ordre. On va travailler avec les six variables suivantes : $r$, $\dot{r}$, $\theta$, $\dot{\theta}$, $z$ et $\dot{z}$, on note $Y$ le vecteur colonne ayant pour composantes les six variables dont il est question. La forme vectorielle du système d'équations différentielles \eqref{eq:sys} est donc
+
+\[
+Y^{\prime}
+=
+\begin{pmatrix}
+\dot r\\
+\ddot r\\
+\dot \theta\\
+\ddot \theta\\
+\dot z\\
+\ddot z
+\end{pmatrix}
+=
+\begin{pmatrix}
+\dot r\\
+r \dot{\theta}^2\\
+\dot{\theta}\\
+- \frac{2 \dot r \dot \theta}{r}\\
+\dot{z}\\
+0
+\end{pmatrix}
+\]
+
+\paragraph{Paramètres de calcul} Nous avons choisi un temps d'intégration de $\SI{3.10^{-8}}{s}$ (il est adapté à la vitesse initiale que l'on donne à l'électron). Ceci étant on choisit un pas d'intégration de $\SI{1.10^{-12}}{s^{-1}}$. Cette valeur est choisie de façon plus où moins arbitraire au début, elle présente certaines justifications cependant, la principale étant qu'avec un pas 10 fois plus petit le calcul ne termine pas dans un temps raisonnable.
+
+Les conditions initiales que nous avons choisies initialement sont celles qui étaient données par l'énoncé, à savoir
+
+
+\begin{eqnarray}
+r_0 &=& \SI{0,03}{m} \label{ci:1}\\
+\dot{r}_0 &=& \SI{0}{m.s^{-1}} \label{ci:2}\\
+\theta_0 &=& \SI{0}{rad} \label{ci:3}\\
+\dot{\theta}_0 &=& \SI{\frac{2,6.10^7}{r_0}}{rad.s^{-1}} \label{ci:4}\\
+z_0 &=& -\SI{0,5}{m} \label{ci:5}\\
+\dot{z}_0 &=& \SI{2,9.10^7}{m.s^{-1}} \label{ci:6}
+\end{eqnarray}
+
+
+
+
+\paragraph{Présentation des résultats}
+
+
 
 
 \section{Modèle simplifié tenant compte des effets de bord}
@@ -158,7 +205,7 @@ Soit:
 \]
 D'après le théorème de Green-Ostrogradski on obtient :
 \[
-\oint_{\partial D} \alpha_i \nabla V d\vec{S} - \int_{D} \nabla \alpha_i \cdot \nabla V d^3 r = 0
+\oint_{\partial D} \alpha_i \nabla V \cdot d\vec{S} - \int_{D} \nabla \alpha_i \cdot \nabla V d^3 r = 0
 \]
 
 \subsection{Conditions aux limites}
@@ -282,15 +329,15 @@ La fonction assemblage.m reconstitue la matrice A, la fonction conditions.m appl
 
 \subsection{Maillage}
 On utilise le maillage de la Figure \ref{f mesh} pour la simulation. Le maillage est volontairement plus fin dans la zone proche du fil car c'est dans cette zone que l'on devrait logiquement observer les plus grandes variations du potentiel.
-\begin{figure}[h]
-\centering
-\includegraphics[width=1\textwidth,height=0.25 \textwidth]{images/mesh}
-\caption{Maillage utilisé pour la simulation}
-\label{f mesh}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=1\textwidth,height=0.25 \textwidth]{images/mesh}
+%\caption{Maillage utilisé pour la simulation}
+%\label{f mesh}
+%\end{figure}
 
 \subsection{Résultats de simulation}
-Après simulation, nous observons un profil de potentiel donné par les Figures \ref{f v}.
+Après simulation, nous observons un profil de potentiel donné par les Figure \ref{f v}.
 
 \begin{figure}[h]
    \begin{minipage}[c]{.32\linewidth}
