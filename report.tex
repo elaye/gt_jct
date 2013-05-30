@@ -207,7 +207,7 @@ Les intégrales sont calculées en utilisant la méthode de Gauss ce qui donne p
 
 \[
 \sum_{k=1}^{NPI} \alpha_i (k) \alpha_j (k) detJ(k) w_k
-\]avec $detJ(k)$ le jacobien associé à la transformation de l'élément normalisé à l'élément réel et $w_k$ le poids de Gauss associé au point $k$. On complète ensuite la fonction integrales.m qui va calculer les éléments de la matrice A.
+\]avec $detJ(k)$ le jacobien associé à la transformation de l'élément normalisé à l'élément réel et $w_k$ le poids de Gauss associé au point $k$. On complète ensuite la fonction integrales.m qui va calculer les éléments de la matrice A. On remarquera le facteur $2 \pi y$ ajouté dans le calcul des intégrales qui vient du fait que notre problème est axisymmétrique.
 
 %\lstinputlisting[language=Matlab]{src/integrales.m}
 
@@ -343,7 +343,7 @@ Après simulation, nous observons un profil de potentiel donné par les Figures 
 
 Une fois que l'on a un programme qui donne la trajectoire de l'électron dans un potentiel et un programme qui détermine le potentiel dans le tube en tenant compte des effets de bord, on peut combiner ces deux programmes pour obtenir la trajectoire de l'électron dans un potentiel déterminé numériquement. La fonction pick.m permet de récupérer le potentiel en un point à l'intérieur du cylindre, ce qui va nous permettre de calculer la trajectoire de l'électron dans le tube.
 
-\section{Energie effective}
+\section{Energie potentielle effective}
 L'énergie de l'électron peut s'écrire de la manière suivante:
 \[
 E = \frac 1 2 mv^2 - eV
