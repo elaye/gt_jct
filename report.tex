@@ -12,7 +12,6 @@
 \usepackage[frenchb]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
 \geometry{dvips,a4paper,margin=1.5in}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
@@ -212,69 +211,74 @@ Les intégrales sont calculées en utilisant la méthode de Gauss ce qui donne p
 
 %\lstinputlisting[language=Matlab]{src/integrales.m}
 
+
+%e=fem.elt(ne);
+%NBN=e.NBN;
+
+%AE=zeros(NBN,NBN);
+%BE=zeros(NBN, 1);
+
+%eps0=1/(36*pi*1e9);
+
+%switch (e.TYP)
+%   case 1
+%      [gauss]=polynomes_S2(fem, ne);
+%      nrg=e.NRG;
+%      Dn=fem.equ.Dn(nrg);
+%      sigma =fem.equ.sigma (nrg);
+%      
+%      NPI=gauss.NPI;
+%      pds=gauss.pds;
+%      detJ=gauss.detJ;
+
+%      for npi=1:NPI 
+%         for ie=1:NBN 
+%            alphai = gauss.alpha(ie, npi);
+%            
+%            BE(ie) =  0;  
+%                
+%            for je=1:NBN
+%               alphaj = gauss.alpha(je,npi);
+%               AE(ie,je) = 0;
+%            end;
+%         end;
+%      end;
+%                
+%   case 2
+%      [gauss]=polynomes_T3(fem, ne);
+
+%      nrg=e.NRG;
+%      eps=eps0*fem.equ.eps(nrg);
+%      rho=fem.equ.rho(nrg);  
+
+%      NPI=gauss.NPI;
+%      pds=gauss.pds;
+%      detJ=gauss.detJ;
+%      yg=gauss.y;
+
+%      for npi=1:NPI                                 
+%         for ie=1:NBN 
+%            alphai = gauss.alpha(ie, npi);
+%            dalphai_dx = gauss.dalpha_dx(ie, npi);
+%            dalphai_dy = gauss.dalpha_dy(ie, npi);
+%                         
+%            BE(ie) =  0;
+\begin{figure}[h]
 \begin{verbatim}
-e=fem.elt(ne);
-NBN=e.NBN;
-
-AE=zeros(NBN,NBN);
-BE=zeros(NBN, 1);
-
-eps0=1/(36*pi*1e9);
-
-switch (e.TYP)
-   case 1
-      [gauss]=polynomes_S2(fem, ne);
-      nrg=e.NRG;
-      Dn=fem.equ.Dn(nrg);
-      sigma =fem.equ.sigma (nrg);
-      
-      NPI=gauss.NPI;
-      pds=gauss.pds;
-      detJ=gauss.detJ;
-
-      for npi=1:NPI 
-         for ie=1:NBN 
-            alphai = gauss.alpha(ie, npi);
-            
-            BE(ie) =  0;  
-                
-            for je=1:NBN
-               alphaj = gauss.alpha(je,npi);
-               AE(ie,je) = 0;
-            end;
-         end;
-      end;
-                
-   case 2
-      [gauss]=polynomes_T3(fem, ne);
-
-      nrg=e.NRG;
-      eps=eps0*fem.equ.eps(nrg);
-      rho=fem.equ.rho(nrg);  
-
-      NPI=gauss.NPI;
-      pds=gauss.pds;
-      detJ=gauss.detJ;
-      yg=gauss.y;
-
-      for npi=1:NPI                                 
-         for ie=1:NBN 
-            alphai = gauss.alpha(ie, npi);
-            dalphai_dx = gauss.dalpha_dx(ie, npi);
-            dalphai_dy = gauss.dalpha_dy(ie, npi);
-                         
-            BE(ie) =  0;  
-            for je=1:NBN
-               alphaj = gauss.alpha(je, npi);
-               dalphaj_dx = gauss.dalpha_dx(je, npi);
-               dalphaj_dy = gauss.dalpha_dy(je, npi);
-               gradai_gradaj=dalphai_dx*dalphaj_dx+dalphai_dy*dalphaj_dy;
-               AE(ie,je) = AE(ie,je) + 2*pi*gradai_gradaj*pds(npi)*detJ(npi)*yg(npi); 
-            end;
-         end;
-      end;    
-   end;
+%Boucle sur chaque noeud de l'élément  
+for je=1:NBN
+   alphaj = gauss.alpha(je, npi);
+   dalphaj_dx = gauss.dalpha_dx(je, npi);
+   dalphaj_dy = gauss.dalpha_dy(je, npi);
+   gradai_gradaj=dalphai_dx*dalphaj_dx+dalphai_dy*dalphaj_dy;
+   AE(ie,je) = AE(ie,je) + 2*pi*gradai_gradaj*pds(npi)*detJ(npi)*yg(npi);
+end;
 \end{verbatim}
+\caption{Extrait de integrales.m}
+\end{figure}
+%         end;
+%      end;    
+%   end;
 
 La fonction assemblage.m reconstitue la matrice A, la fonction conditions.m applique les conditions de Dirichlet à notre système en utilisant les fichiers .pro. Une fois les calculs effectués, solution.m s'occupe d'afficher les résultats de la simulation.
 
