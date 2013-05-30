@@ -433,13 +433,12 @@ E_{\mathrm{eff}} = \frac 1 2 m r^2 \dot{\theta}^2 -e V
 \]
 On calcule numériquement cette grandeur en chaque point de la trajectoire. On trace ensuite l'énergie potentielle effective en fonction des deux coordonnées $r$ et $z$, pour obtenir un résultat comme ceux des figures \ref{f Eeff_3d} et \ref{f Eeff}. Cette cuvette est à comparer à l'énergie totale (qui est une constante) pour connaître les limites spatiales du mouvement.
 
-
 \begin{figure}[h]
    \begin{minipage}[c]{.49\linewidth}
       \includegraphics[width=0.99\textwidth,height=0.8\textwidth]{images/Eeff_3d}
       %\caption{Profil 3D du potentiel}
       \label{f Eeff_3d}
-   \end{minipage} \hfill
+   \end{minipage}
    \begin{minipage}[c]{.49\linewidth}
       \includegraphics[width=0.99\textwidth,height=0.8\textwidth]{images/Eeff_rEeff}
       %\caption{Vue $xOy$ du potentiel}
@@ -464,6 +463,10 @@ On peut faire plusieurs commentaires sur les deux courbes des figures \ref{f Eef
 
 
 \section{Conclusion}
+Afin de résoudre ce problème complexe nous avons procédé de manière incrémentale. Nous avons d'abord simulé la trajectoire d'un électron dans un potentiel dont la solution analytique est connue grâce à la méthode RK4. Nous avons ensuite simulé le potentiel créé par le fil dans le tube en tenant compte des effets de bord par la méthode des éléments finis. Une fois ces deux choses réalisées nous avons pû fusioner les deux programmes afin d'obtenir la trajectoire de l'électron dans le tube en prenant en compte les effets de bord.  Nous avons obtenu des résultats satisfaisants donnant la trajectoire de l'électron dans le tube.
+
+
+Cependant des problèmes apparaissent lorsque l'on utilise un maillage plus fin, en effet on observe une divergence de la trajectoire de l'électron ce qui pose problème puisque notre résolution numérique ne devrait logiquement pas dépendre du maillage. Après plusieurs simulations nous avons conclu que le problème venait sûrement des conditions initiales ou de la fonction \emph{pick} qui donne le potentiel calculé numériquement en un point. Nous avons tenté plusieurs manières de résoudre ce problème. Nous avons d'abord utilisé plusieurs versions de la fonction \emph{pick} puis testé différents jeux de conditions initiales, sans résultat.
 
 
 
