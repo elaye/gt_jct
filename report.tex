@@ -12,6 +12,7 @@
 \usepackage[frenchb]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{listings}
 \geometry{dvips,a4paper,margin=1.5in}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
@@ -23,7 +24,7 @@
 \begin{document}
 \maketitle
 
-Un électron soumis à un champ électromagnétique est soumis à la force de Lorentz qui contient une composante due au champ électrique et une autre due au champ magnétique. Seule la partie électrique est capable de fournir du travail à l'électron et donc de l'accélérer. Un électron dans un champ électrique a donc une trajectoire qui dépent à la fois des conditions initiales (position et vitesse) et du champ électrique appliqué.
+Un électron soumis à un champ électromagnétique est soumis à la force de Lorentz qui contient une composante due au champ électrique et une autre due au champ magnétique. Seule la partie électrique est capable de fournir du travail à l'électron et donc de l'accélérer. Un électron dans un champ électrique a donc une trajectoire qui dépend à la fois des conditions initiales (position et vitesse) et du champ électrique appliqué.
 
 \section{Position du probléme}
 
@@ -48,9 +49,9 @@ Le systéme étudié est un guide d'électrons. Des électrons sont émis depuis
 \draw [-] (-10,2) -- (10,2);
 \draw [-] (10,2) -- (10,4);
 \draw [-] (9.625,4) -- (10.375,4);
-\foreach \i in {1,...,7}						%masse
-	{\draw [-] (9.5 + 0.125*\i,4) -- (9.75 + 0.125*\i,4.25);
-	}
+\foreach \i in {1,...,7}                  %masse
+   {\draw [-] (9.5 + 0.125*\i,4) -- (9.75 + 0.125*\i,4.25);
+   }
 
 
 
@@ -122,17 +123,10 @@ Ces équations écrites il nous faut choisir une méthode numérique pour calcul
 Notre choix s'est d'abord porté sur une méthode de résolution d'équations différentielles à pas fixe : la méthode de Runge-Kutta d'ordre 4. Elle est relativement simple à implémenter et tout aussi relativement précise.
 
 
+\section{Modèle simplifié tenant compte des effets de bord}
 
-\section{partie analytique}
-
-
-\section{Modélisation du champ dans le guide}
-\subsection{Modèle simplifié ne tenant pas compte des effets de bord}
-
-\subsection{Modèle simplifié tenant compte des effets de bord}
-
-\subsubsection{Présentation de l'équation à résoudre}
-On suppose maintenant que le dispositif n'est plus de longueur infinie, ce qui fait apparaÓtre des effets de bord et nous empÍche donc de résoudre analytiquement l'équation de Laplace ($\Delta V=0$). Cependant on peut tout de mÍme simplifier le problème en admettant que le potentiel est à symétrie cylindrique, c'est à dire que $V$ est invariant selon $\theta$. On doit donc résoudre numériquement l'équation suivante:
+\subsection{Présentation de l'équation à résoudre}
+On suppose maintenant que le dispositif n'est plus de longueur infinie, ce qui fait apparaître des effets de bord et nous empèche donc de résoudre analytiquement l'équation de Laplace ($\Delta V=0$). Cependant on peut tout de même simplifier le problème en admettant que le potentiel est à symétrie cylindrique, c'est à dire que $V$ est invariant selon $\theta$. On doit donc résoudre numériquement l'équation suivante:
 
 \[
 \Delta V(r,z)=0
@@ -142,32 +136,32 @@ Soit:
 \frac{\partial^2 V}{\partial r^2}+\frac{1}{r}\frac{\partial V}{ \partial r}+\frac{\partial^2 V}{\partial z^2}=0
 \]
 
-\subsubsection{Limites du modéle}
+\subsection{Limites du modéle}
 On remarquera que dans ce modéle on ne prend pas en compte le fil d'arrivée de potentiel qui en réalité déforme le potentiel à l'intérieur du tube. On ne prend pas non plus en compte le fil qui connecte le tube à la masse car nous travaillons à l'intérieur du cylindre et il n'a donc aucune influence.
 
-\subsubsection{Modèle numérique}
-Afin de résoudre numériquement l'équation de Laplace, on utilise la méthode des éléments finis dans l'approximation de Galerkin qui consiste à pondérer l'équation aux dérivées partielles par une fonction test $\beta_i$ à support réduit sur chacun des $N$ noeuds du maillage.
+\subsection{Modèle numérique}
+Afin de résoudre numériquement l'équation de Laplace, on utilise la méthode des éléments finis dans l'approximation de Galerkin qui consiste à pondérer l'équation aux dérivées partielles par une fonction test $\alpha_i$ à support réduit sur chacun des $N$ noeuds du maillage.
 
-\subsubsection{Formulation faible}
-En projetant l'équation de Laplace sur $\beta_i$ on obtient:
+\subsection{Formulation faible}
+En projetant l'équation de Laplace sur $\alpha_i$ on obtient, en notant $D$ le volume du cylindre et $\partial D$ sa frontière:
 
 \[
-\int_{D} \beta_i \Delta V d^3r = 0
+\int_{D} \alpha_i \Delta V d^3r = 0
 \]
 Or:
 \[
-div(\beta_i \nabla V) = \nabla \beta_i \cdot \nabla V + \beta_i \Delta V
+div(\beta_i \nabla V) = \nabla \alpha_i \cdot \nabla V + \alpha_i \Delta V
 \]
 Soit:
 \[
-\int_{D} \left( div(\beta_i \nabla V) - \nabla\beta_i \cdot \nabla V \right) d^3r = 0
+\int_{D} \left( div(\alpha_i \nabla V) - \nabla\alpha_i \cdot \nabla V \right) d^3r = 0
 \]
 D'après le théorème de Green-Ostrogradski on obtient :
 \[
-\oint_{\partial D} \beta_i \nabla V d\vec{S} - \int_{D} \nabla \cdot \beta_i \nabla V d^3 r = 0
+\oint_{\partial D} \alpha_i \nabla V d\vec{S} - \int_{D} \nabla \alpha_i \cdot \nabla V d^3 r = 0
 \]
 
-\subsubsection{Conditions aux limites}
+\subsection{Conditions aux limites}
 Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=20000$ Volts et que le tube est relié à la masse. Ces conditions nous donnent:
 
 
@@ -182,14 +176,170 @@ De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditi
 
 \[
 \frac{\partial V}{\partial \vec{n} } = \nabla V \cdot \vec{n} = 0
-\]
+\]avec $\vec{n}$ la normale à la surface $\partial D$
 La formulation faible devient donc:
 
 \[
-\int_{D} \nabla \beta_i \cdot \nabla V d^3 r = 0
+\int_{D} \nabla \alpha_i \cdot \nabla V d^3 r = 0
 \]
 
-\section{discution}
+\subsection{Discrétisation}
+On discrétise maintenant l'équation en décomposant les intégrales sur les éléments du maillage. On remplace le potentiel $V$ par son interpolée $V = \sum_{j} \alpha_j V_j$. On somme ensuite sur tous les éléments du maillage ce qui donne:
+
+\[
+\sum_{e \in NBE} \sum_{j \in e} \int_{D} V_j \nabla \alpha_i \nabla \alpha_j d^3 r = 0
+\]
+
+On obtient alors une équation matricielle du type $A 
+\left( \begin{array}{c}
+\vdots \\
+V_j \\
+\vdots \\
+\end{array} \right) 
+ = 0$ avec
+
+ \[
+ a_{ij} = \int_{D} \nabla \alpha_i \nabla \alpha_j d^3 r 
+\]
+
+\medskip
+
+Les intégrales sont calculées en utilisant la méthode de Gauss ce qui donne pour un élément:
+
+\[
+\sum_{k=1}^{NPI} \alpha_i (k) \alpha_j (k) detJ(k) w_k
+\]avec $detJ(k)$ le jacobien associé à la transformation de l'élément normalisé à l'élément réel et $w_k$ le poids de Gauss associé au point $k$. On complète ensuite la fonction integrales.m qui va calculer les éléments de la matrice A.
+
+%\lstinputlisting[language=Matlab]{src/integrales.m}
+
+\begin{verbatim}
+e=fem.elt(ne);
+NBN=e.NBN;
+
+AE=zeros(NBN,NBN);
+BE=zeros(NBN, 1);
+
+eps0=1/(36*pi*1e9);
+
+switch (e.TYP)
+   case 1
+      [gauss]=polynomes_S2(fem, ne);
+      nrg=e.NRG;
+      Dn=fem.equ.Dn(nrg);
+      sigma =fem.equ.sigma (nrg);
+      
+      NPI=gauss.NPI;
+      pds=gauss.pds;
+      detJ=gauss.detJ;
+
+      for npi=1:NPI 
+         for ie=1:NBN 
+            alphai = gauss.alpha(ie, npi);
+            
+            BE(ie) =  0;  
+                
+            for je=1:NBN
+               alphaj = gauss.alpha(je,npi);
+               AE(ie,je) = 0;
+            end;
+         end;
+      end;
+                
+   case 2
+      [gauss]=polynomes_T3(fem, ne);
+
+      nrg=e.NRG;
+      eps=eps0*fem.equ.eps(nrg);
+      rho=fem.equ.rho(nrg);  
+
+      NPI=gauss.NPI;
+      pds=gauss.pds;
+      detJ=gauss.detJ;
+      yg=gauss.y;
+
+      for npi=1:NPI                                 
+         for ie=1:NBN 
+            alphai = gauss.alpha(ie, npi);
+            dalphai_dx = gauss.dalpha_dx(ie, npi);
+            dalphai_dy = gauss.dalpha_dy(ie, npi);
+                         
+            BE(ie) =  0;  
+            for je=1:NBN
+               alphaj = gauss.alpha(je, npi);
+               dalphaj_dx = gauss.dalpha_dx(je, npi);
+               dalphaj_dy = gauss.dalpha_dy(je, npi);
+               gradai_gradaj=dalphai_dx*dalphaj_dx+dalphai_dy*dalphaj_dy;
+               AE(ie,je) = AE(ie,je) + 2*pi*gradai_gradaj*pds(npi)*detJ(npi)*yg(npi); 
+            end;
+         end;
+      end;    
+   end;
+\end{verbatim}
+
+La fonction assemblage.m reconstitue la matrice A, la fonction conditions.m applique les conditions de Dirichlet à notre système en utilisant les fichiers .pro. Une fois les calculs effectués, solution.m s'occupe d'afficher les résultats de la simulation.
+
+%...
+
+\subsection{Maillage}
+On utilise le maillage de la Figure \ref{f mesh} pour la simulation. Le maillage est volontairement plus fin dans la zone proche du fil car c'est dans cette zone que l'on devrait logiquement observer les plus grandes variations du potentiel.
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth,height=0.25 \textwidth]{images/mesh}
+\caption{Maillage utilisé pour la simulation}
+\label{f mesh}
+\end{figure}
+
+\subsection{Résultats de simulation}
+Après simulation, nous observons un profil de potentiel donné par les Figures \ref{f v}.
+
+\begin{figure}[h]
+   \begin{minipage}[c]{.32\linewidth}
+      \includegraphics[width=1\textwidth,height=0.8\textwidth]{images/v_3d}
+      %\caption{Profil 3D du potentiel}
+      \label{f v_3d}
+   \end{minipage} \hfill
+   \begin{minipage}[c]{.32\linewidth}
+      \includegraphics[width=1\textwidth,height=0.8\textwidth]{images/v_xy}
+      %\caption{Vue $xOy$ du potentiel}
+      \label{f v_xy}
+   \end{minipage} \hfill
+   \begin{minipage}[c]{.32\linewidth}
+      \includegraphics[width=1\textwidth,height=0.8\textwidth]{images/v_yz}
+      %\caption{Vue $yOz$ du potentiel}
+      \label{f v_yz}
+   \end{minipage}
+   \caption{Différentes vues du potentiel}
+   \label{f v}
+\end{figure}
+
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.5\textwidth,height=0.4\textwidth]{images/v_3d}
+%\caption{Profil 3D du potentiel}
+%\label{f v_3d}
+%\end{figure}
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.5\textwidth,height=0.4\textwidth]{images/v_xy}
+%\caption{Vue $xOy$ du potentiel}
+%\label{f v_xy}
+%\end{figure}
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.5\textwidth,height=0.4\textwidth]{images/v_yz}
+%\caption{Vue $yOz$ du potentiel}
+%\label{f v_yz}
+%\end{figure}
+
+
+\section{Modélisation des trajectoires}
+
+Une fois que l'on a un programme qui donne la trajectoire de l'électron dans un potentiel et un programme qui détermine le potentiel dans le tube en tenant compte des effets de bord, on peut combiner ces deux programmes pour obtenir la trajectoire de l'électron dans un potentiel déterminé numériquement. La fonction pick.m permet de récupérer le potentiel en un point à l'intérieur du cylindre, ce qui va nous permettre de calculer la trajectoire de l'électron dans le tube.
+
+\section{discussion}
 
 
 
