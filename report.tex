@@ -24,6 +24,8 @@
 \begin{document}
 \maketitle
 
+\tableofcontents
+
 Un électron soumis à un champ électromagnétique est soumis à la force de Lorentz qui contient une composante due au champ électrique et une autre due au champ magnétique. Seule la partie électrique est capable de fournir du travail à l'électron et donc de l'accélérer. Un électron dans un champ électrique a donc une trajectoire qui dépend à la fois des conditions initiales (position et vitesse) et du champ électrique appliqué.
 
 \section{Position du problème}
@@ -420,17 +422,17 @@ Dans ce cas, la trajectoire est proche d'une hélice, on voit par contre les eff
 \section{Energie potentielle effective}
 
 En plus de la connaissance de la trajectoire de l'électron il peut être intéressant de réfléchir à la notion d'énergie potentielle effective. L'énergie totale de l'électron s'écrit de la manière suivante:
-\[
+\begin{equation}
 E = \frac 1 2 mv^2 - eV
-\]
+\end{equation}
 Soit:
-\[
+\begin{equation}
 E = \frac 1 2 m \dot{r}^2 + \frac 1 2 m \dot{z}^2 + \frac 1 2 m r^2 \dot{\theta}^2 - e V
-\]
+\end{equation}
 Comme dans le cas de l'étude d'un mouvement planétaire, on va définir l'énergie potentielle effective comme l'énergie totale à laquelle on enlève les termes en $\dot{r}^2$ et en $\dot{z}^2$. On peut donc définir une énergie potentielle effective de la forme:
-\[
+\begin{equation}
 E_{\mathrm{eff}} = \frac 1 2 m r^2 \dot{\theta}^2 -e V
-\]
+\end{equation}
 On calcule numériquement cette grandeur en chaque point de la trajectoire. On trace ensuite l'énergie potentielle effective en fonction des deux coordonnées $r$ et $z$, pour obtenir un résultat comme ceux des figures \ref{f Eeff_3d} et \ref{f Eeff}. Cette cuvette est à comparer à l'énergie totale (qui est une constante) pour connaître les limites spatiales du mouvement.
 
 \begin{figure}[h]
@@ -458,7 +460,8 @@ On peut faire plusieurs commentaires sur les deux courbes des figures \ref{f Eef
 \label{f Eeff}
 \end{figure}
 
-\section{discussion}
+
+
 
 
 
