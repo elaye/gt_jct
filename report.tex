@@ -171,7 +171,7 @@ z_0 &=& -\SI{0,5}{m} \label{ci:5}\\
 
 \begin{figure}[h]
 \centering
-\includegraphics[height=6cm]{images/t_3D.png}
+\includegraphics[height=6cm]{images/t_3d.png}
 \caption{Trajectoire d'un électron dans le potentiel sans effets de bords}
 \label{fig:t_3d}
 \end{figure}
@@ -180,8 +180,8 @@ Ce résultat est encourageant car il montre d'une certaine manière que notre m�
 
 
 \section{Modèle simplifié tenant compte des effets de bord}
-
-\subsection{Présentation de l'équation à résoudre}
+\subsection{Détermination numérique du potentiel}
+\paragraph{Présentation de l'équation à résoudre}
 On suppose maintenant que le dispositif n'est plus de longueur infinie, ce qui fait apparaître des effets de bord et nous empèche donc de résoudre analytiquement l'équation de Laplace ($\Delta V=0$). Cependant on peut tout de même simplifier le problème en admettant que le potentiel est à symétrie cylindrique, c'est à dire que $V$ est invariant selon $\theta$. On doit donc résoudre numériquement l'équation suivante:
 
 \begin{equation}
@@ -192,13 +192,13 @@ Soit:
 \frac{\partial^2 V}{\partial r^2}+\frac{1}{r}\frac{\partial V}{ \partial r}+\frac{\partial^2 V}{\partial z^2}=0
 \end{equation}
 
-\subsection{Limites du modèle}
+\paragraph{Limites du modèle}
 On remarquera que dans ce modèle on ne prend pas en compte le fil d'arrivée de potentiel qui en réalité déforme le potentiel à l'intérieur du tube. On ne prend pas non plus en compte le fil qui connecte le tube à la masse car nous travaillons à l'intérieur du cylindre et il n'a donc aucune influence.
 
-\subsection{Modèle numérique}
+\paragraph{Modèle numérique}
 Afin de résoudre numériquement l'équation de Laplace, on utilise la méthode des éléments finis dans l'approximation de Galerkin qui consiste à pondérer l'équation aux dérivées partielles par une fonction test $\alpha_i$ à support réduit sur chacun des $N$ noeuds du maillage.
 
-\subsection{Formulation faible}
+\paragraph{Formulation faible}
 En projetant l'équation de Laplace sur $\alpha_i$ on obtient, en notant $D$ le volume du cylindre et $\partial D$ sa frontière
 
 \begin{equation}
@@ -208,7 +208,7 @@ or
 \begin{equation}
 div(\beta_i \nabla V) = \nabla \alpha_i \cdot \nabla V + \alpha_i \Delta V,
 \end{equation}
-soit donc
+donc
 \begin{equation}
 \int_{D} \left( div(\alpha_i \nabla V) - \nabla\alpha_i \cdot \nabla V \right) d^3r = 0.
 \end{equation}
@@ -217,7 +217,7 @@ D'après le théorème de Green-Ostrogradski on obtient
 \oint_{\partial D} \alpha_i \nabla V \cdot d\vec{S} - \int_{D} \nabla \alpha_i \cdot \nabla V d^3 r = 0
 \end{equation}
 
-\subsection{Conditions aux limites}
+\paragraph{Conditions aux limites}
 Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=\SI{20000}{V}$ et que le tube est relié à la masse. Ces conditions nous donnent
 
 
@@ -240,7 +240,7 @@ La formulation faible devient donc
 \int_{D} \nabla \alpha_i \cdot \nabla V d^3 r = 0
 \end{equation}
 
-\subsection{Discrétisation}
+\paragraph{Discrétisation}
 On discrétise maintenant l'équation en décomposant les intégrales sur les éléments du maillage. On remplace le potentiel $V$ par son interpolée $V = \sum_{j} \alpha_j V_j$. On somme ensuite sur tous les éléments du maillage ce qui donne
 
 \begin{equation}
@@ -344,7 +344,7 @@ La fonction \verb|assemblage.m| reconstitue la matrice A. Les conditions de Diri
 
 %...
 
-\subsection{Maillage}
+\paragraph{Maillage}
 On utilise le maillage de la Figure \ref{f mesh} pour la simulation. Le maillage est volontairement plus fin dans la zone proche du fil car c'est dans cette zone que l'on devrait logiquement observer les plus grandes variations du potentiel.
 \begin{figure}[h]
 \centering
@@ -353,7 +353,7 @@ On utilise le maillage de la Figure \ref{f mesh} pour la simulation. Le maillage
 \label{f mesh}
 \end{figure}
 
-\subsection{Résultats de simulation}
+\paragraph{Résultats de simulation}
 Après simulation, nous observons un profil de potentiel donné par la Figure \ref{f v}.
 
 \begin{figure}[h]
@@ -401,7 +401,7 @@ On voit sur le tracé de gauche que dans ce cas là on observe bien des effets d
 %\end{figure}
 
 
-\section{Calcul des trajectoires électroniques dans le potentiel MEF}
+\subsection{Calcul des trajectoires électroniques dans le potentiel MEF}
 
 
 Une fois que l'on a un programme qui donne la trajectoire de l'électron dans un potentiel et un programme qui détermine le potentiel dans le tube en tenant compte des effets de bord, on peut combiner ces deux programmes pour obtenir la trajectoire de l'électron dans un potentiel déterminé numériquement. La fonction \verb|pick.m| permet de récupérer le potentiel en un point à l'intérieur du cylindre, ce qui va nous permettre de calculer la trajectoire de l'électron dans le tube.
@@ -419,7 +419,7 @@ Dans ce cas, la trajectoire est proche d'une hélice, on voit par contre les eff
 
 
 
-\section{Energie potentielle effective}
+\subsection{Energie potentielle effective}
 
 En plus de la connaissance de la trajectoire de l'électron il peut être intéressant de réfléchir à la notion d'énergie potentielle effective. L'énergie totale de l'électron s'écrit de la manière suivante:
 \begin{equation}
@@ -455,7 +455,7 @@ On peut faire plusieurs commentaires sur les deux courbes des figures \ref{f Eef
 
 \begin{figure}[h]
 \centering
-\includegraphics[height=6cm]{images/Eeff_3d_ci_ 2.png}
+\includegraphics[height=6cm]{images/Eeff_3d_ci_2.png}
 \caption{Energie potentielle effective}
 \label{f Eeff}
 \end{figure}
