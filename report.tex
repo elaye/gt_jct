@@ -404,7 +404,18 @@ On voit sur le tracé de gauche que dans ce cas là on observe bien des effets d
 
 Une fois que l'on a un programme qui donne la trajectoire de l'électron dans un potentiel et un programme qui détermine le potentiel dans le tube en tenant compte des effets de bord, on peut combiner ces deux programmes pour obtenir la trajectoire de l'électron dans un potentiel déterminé numériquement. La fonction \verb|pick.m| permet de récupérer le potentiel en un point à l'intérieur du cylindre, ce qui va nous permettre de calculer la trajectoire de l'électron dans le tube.
 
-On utilise la méthode RK4 (vue au \ref{subsection:lol}) pour résoudre le système différentiel.
+On utilise la méthode RK4 (vue au \ref{subsection:lol}) pour résoudre le système différentiel, sauf qu'ici les valeurs du potentiel et du gradient de potentiel ne sont plus données par une formule analytique mais par un programme qui les calcules à partir de la résolutions éléments finis. Un tracé de la trajectoire vu en $xy$ est présenté sur la figure \ref{fig:elie_encule}, les conditions initiales et les paramètres de calculs sont les mêmes que ceux utilisés au \ref{subsection:lol}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=6cm]{images/t_num_xy.png}
+\caption{Trajectoire d'un électron projetée sur un plan $z=\mathrm{cste}$}
+\label{fig:elie_encule}
+\end{figure}
+
+Dans ce cas, la trajectoire est proche d'une hélice, on voit par contre les effets dus aux inhomogénéités du potentiel car l'hélice n'est plus <<circulaire>>.
+
+
 
 \section{Energie potentielle effective}
 
@@ -420,7 +431,7 @@ Comme dans le cas de l'étude d'un mouvement planétaire, on va définir l'éner
 \[
 E_{\mathrm{eff}} = \frac 1 2 m r^2 \dot{\theta}^2 -e V
 \]
-On calcule numériquement cette grandeur en chaque point de la trajectoire. On trace ensuite l'énergie potentielle effective en fonction des deux coordonnées $r$ et $z$, pour obtenir un résultat comme celui de la figure \ref{fig:lolilolilol}. Cette cuvette est à comparer à l'énergie totale (qui est une constante) pour connaître les limites spatiales du mouvement.
+On calcule numériquement cette grandeur en chaque point de la trajectoire. On trace ensuite l'énergie potentielle effective en fonction des deux coordonnées $r$ et $z$, pour obtenir un résultat comme ceux des figures \ref{f Eeff_3d} et \ref{f Eeff}. Cette cuvette est à comparer à l'énergie totale (qui est une constante) pour connaître les limites spatiales du mouvement.
 
 
 \begin{figure}[h]
@@ -438,14 +449,15 @@ On calcule numériquement cette grandeur en chaque point de la trajectoire. On t
    \label{f Eeff}
 \end{figure}
 
-%La Figure \ref{f Eeff} montre le tracé de cette énergie potentielle effective.
+On peut faire plusieurs commentaires sur les deux courbes des figures \ref{f Eeff}. Elles présentent bien un aspect de <<cuvette>> mais sont particulièrement bruitées. Nous avons procédés à plusieurs essais pour tenter d'obtenir de meilleurs résultats. Nous avons d'abord augmenté le nombre de plus proches voisins utilisé dans le fichier \verb|pick.m|, sans résultat significatif. Nous avons aussi tenté de diminuer la valeur du pas d'intégration (qui était dans ce cas $1.10^{-12}$), comme déjà indiqué une telle diminution entraîne des calculs interminables.
 
-%\begin{figure}[h]
-%\centering
-%\includegraphics[width=1\textwidth,height=0.25 \textwidth]{images/Eeff}
-%\caption{Energie potentielle effective}
-%\label{f Eeff}
-%\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[height=6cm]{images/Eeff_3d_ci_ 2.png}
+\caption{Energie potentielle effective}
+\label{f Eeff}
+\end{figure}
 
 \section{discussion}
 
