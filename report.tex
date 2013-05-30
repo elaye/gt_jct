@@ -26,9 +26,9 @@
 
 Un électron soumis à un champ électromagnétique est soumis à la force de Lorentz qui contient une composante due au champ électrique et une autre due au champ magnétique. Seule la partie électrique est capable de fournir du travail à l'électron et donc de l'accélérer. Un électron dans un champ électrique a donc une trajectoire qui dépend à la fois des conditions initiales (position et vitesse) et du champ électrique appliqué.
 
-\section{Position du probléme}
+\section{Position du problème}
 
-Le systéme étudié est un guide d'électrons. Des électrons sont émis depuis une source et sont "guidés" jusqu'à un détecteur dans un systéme coaxial. Le guide est constitué d'un fil porté au potentiel $V_0$ et d'un cylindre métallique mis à la masse. La symmétrie du probléme nous motive à travailler dans un triédre de coordonnées cylindriques d'axe le fil. Un schéma du dispositif est présenté sur la figure \ref{fig:schema}.
+Le systéme étudié est un guide d'électrons. Des électrons sont émis depuis une source et sont "guidés" jusqu'à un détecteur dans un systéme coaxial. Le guide est constitué d'un fil porté au potentiel $V_0$ et d'un cylindre métallique mis à la masse. La symmétrie du problème nous motive à travailler dans un trièdre de coordonnées cylindriques d'axe le fil. Un schéma du dispositif est présenté sur la figure \ref{fig:schema}.
 
 \begin{figure}[h]
 \centering
@@ -79,12 +79,12 @@ Le systéme étudié est un guide d'électrons. Des électrons sont émis depuis
 \end{figure}
 Le rayon du cylindre est $R_2 = 3.5 \mathrm{cm}$, le rayon du fil est $R_1 = 0.15 \mathrm{cm}$. La longueur du fil (et donc du guide) est $L = 1 \mathrm{cm}$.
 
-L'étude de la trajectoire des électrons dans le guide nécessite la connaissance du champ électrique dans ce dernier. Nous allons donc commencer par déterminer le champ électrique dans le guide avant de s'intéresser à notre probléme qui concerne la trajectoire des électrons.
+L'étude de la trajectoire des électrons dans le guide nécessite la connaissance du champ électrique dans ce dernier. Nous allons donc commencer par déterminer le champ électrique dans le guide avant de s'intéresser à notre problème qui concerne la trajectoire des électrons.
 
 \section{Modèle simplifié du champ dans le guide}
 
 
-On commence par envisager un modéle simple, qui consiste à dire que le tube est suffisamment grand pour pouvoir négliger les effets de bords (on aura l'occasion de revenir sur cette hypothése). On va donc considérer que le tube est infini. Le probléme présente alors des symétries intéressantes.
+On commence par envisager un modèle simple, qui consiste à dire que le tube est suffisamment grand pour pouvoir négliger les effets de bords (on aura l'occasion de revenir sur cette hypothése). On va donc considérer que le tube est infini. Le probléme présente alors des symétries intéressantes.
 
 
 \subsection{Détermination du champ électrique et du potentiel dans le guide}
@@ -95,14 +95,14 @@ En premier lieu on déduit des invariances par translation selon l'axe $z$ et pa
 V &=& V(r)
 \end{eqnarray}
 
-Un théoréme de Gauss appliqué sur un cylindre d'axe $z$ nous donne pour le champ électrique et donc le pour le potentiel
+Un théorème de Gauss appliqué sur un cylindre d'axe $z$ nous donne pour le champ électrique et donc le pour le potentiel
 \begin{eqnarray}
 E(r) &=& \frac{\rho}{2 \pi \varepsilon_0 r}\\
 V(r) &= &-\frac{\rho}{2 \pi \varepsilon_0} \ln(r) + C
 \end{eqnarray}
 où $\rho$ est la densité linéique de charges portée par le fil et $C$ une constante d'intégration à déterminer.
 
-Les données du probléme nous assurent que $V(R_2) - V(R_1) = V_0$, on en déduit ainsi l'expression de $\rho$ pour trouver le champ électrique et le potentiel
+Les données du problème nous assurent que $V(R_2) - V(R_1) = V_0$, on en déduit ainsi l'expression de $\rho$ pour trouver le champ électrique et le potentiel
 \begin{eqnarray}
 \mathbf{E} &=& \frac{V_0}{\ln(\frac{R_2}{R_1})r} \mathbf{e_r}\\
 V(r) &=& V_0 \frac{\ln(R_2) - \ln(r)}{\ln(R_2) - \ln(R_1)} 
@@ -184,32 +184,32 @@ Soit:
 \end{equation}
 
 \subsection{Limites du modèle}
-On remarquera que dans ce modéle on ne prend pas en compte le fil d'arrivée de potentiel qui en réalité déforme le potentiel à l'intérieur du tube. On ne prend pas non plus en compte le fil qui connecte le tube à la masse car nous travaillons à l'intérieur du cylindre et il n'a donc aucune influence.
+On remarquera que dans ce modèle on ne prend pas en compte le fil d'arrivée de potentiel qui en réalité déforme le potentiel à l'intérieur du tube. On ne prend pas non plus en compte le fil qui connecte le tube à la masse car nous travaillons à l'intérieur du cylindre et il n'a donc aucune influence.
 
 \subsection{Modèle numérique}
 Afin de résoudre numériquement l'équation de Laplace, on utilise la méthode des éléments finis dans l'approximation de Galerkin qui consiste à pondérer l'équation aux dérivées partielles par une fonction test $\alpha_i$ à support réduit sur chacun des $N$ noeuds du maillage.
 
 \subsection{Formulation faible}
-En projetant l'équation de Laplace sur $\alpha_i$ on obtient, en notant $D$ le volume du cylindre et $\partial D$ sa frontière:
+En projetant l'équation de Laplace sur $\alpha_i$ on obtient, en notant $D$ le volume du cylindre et $\partial D$ sa frontière
 
 \begin{equation}
-\int_{D} \alpha_i \Delta V d^3r = 0
+\int_{D} \alpha_i \Delta V d^3r = 0,
 \end{equation}
-Or:
+or
 \begin{equation}
-div(\beta_i \nabla V) = \nabla \alpha_i \cdot \nabla V + \alpha_i \Delta V
+div(\beta_i \nabla V) = \nabla \alpha_i \cdot \nabla V + \alpha_i \Delta V,
 \end{equation}
-Soit:
+soit donc
 \begin{equation}
-\int_{D} \left( div(\alpha_i \nabla V) - \nabla\alpha_i \cdot \nabla V \right) d^3r = 0
+\int_{D} \left( div(\alpha_i \nabla V) - \nabla\alpha_i \cdot \nabla V \right) d^3r = 0.
 \end{equation}
-D'après le théorème de Green-Ostrogradski on obtient :
+D'après le théorème de Green-Ostrogradski on obtient
 \begin{equation}
 \oint_{\partial D} \alpha_i \nabla V \cdot d\vec{S} - \int_{D} \nabla \alpha_i \cdot \nabla V d^3 r = 0
 \end{equation}
 
 \subsection{Conditions aux limites}
-Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=20000$ Volts et que le tube est relié à la masse. Ces conditions nous donnent:
+Les conditions aux limites à appliquer sur le fil et sur le tube sont des conditions de Dirichlet puisque le potentiel du fil est fixé à $V_0=\SI{20000}{V}$ et que le tube est relié à la masse. Ces conditions nous donnent
 
 
 
@@ -219,20 +219,20 @@ V(R_2,z) &=& 0
 \end{eqnarray}
 
 
-De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditions de Neumann à ses extrémités. Les extrémités du tube étant suffisamment éloignés des extrémités du fil, on peut considérer que le potentiel est constant, ce qui revient à dire que:
+De plus, puisque l'on considère un cylindre ouvert, on va appliquer des conditions de Neumann à ses extrémités. Les extrémités du tube étant suffisamment éloignés des extrémités du fil, on peut considérer que le potentiel est constant, ce qui revient à dire que
 
 \begin{equation}
 \frac{\partial V}{\partial \vec{n} } = \nabla V \cdot \vec{n} = 0
 \end{equation}
 avec $\vec{n}$ la normale à la surface $\partial D$
-La formulation faible devient donc:
+La formulation faible devient donc
 
 \begin{equation}
 \int_{D} \nabla \alpha_i \cdot \nabla V d^3 r = 0
 \end{equation}
 
 \subsection{Discrétisation}
-On discrétise maintenant l'équation en décomposant les intégrales sur les éléments du maillage. On remplace le potentiel $V$ par son interpolée $V = \sum_{j} \alpha_j V_j$. On somme ensuite sur tous les éléments du maillage ce qui donne:
+On discrétise maintenant l'équation en décomposant les intégrales sur les éléments du maillage. On remplace le potentiel $V$ par son interpolée $V = \sum_{j} \alpha_j V_j$. On somme ensuite sur tous les éléments du maillage ce qui donne
 
 \begin{equation}
 \sum_{e \in NBE} \sum_{j \in e} \int_{D} V_j \nabla \alpha_i \nabla \alpha_j d^3 r = 0
@@ -252,7 +252,7 @@ V_j \\
 
 \medskip
 
-Les intégrales sont calculées en utilisant la méthode de Gauss ce qui donne pour un élément:
+Les intégrales sont calculées en utilisant la méthode de Gauss ce qui donne pour un élément :
 
 \begin{equation}
 \sum_{k=1}^{NPI} \alpha_i (k) \alpha_j (k) detJ(k) w_k
@@ -330,7 +330,7 @@ end;
 %      end;    
 %   end;
 
-La fonction assemblage.m reconstitue la matrice A, la fonction conditions.m applique les conditions de Dirichlet à notre système en utilisant les fichiers \verb|.pro|. Une fois les calculs effectués, solution.m s'occupe d'afficher les résultats de la simulation.
+La fonction \verb|assemblage.m| reconstitue la matrice A, la fonction conditions.m applique les conditions de Dirichlet à notre système en utilisant les fichiers \verb|.pro|. Une fois les calculs effectués, \verb|solution.m| s'occupe d'afficher les résultats de la simulation.
 
 %...
 
@@ -365,6 +365,8 @@ Après simulation, nous observons un profil de potentiel donné par la Figure \r
    \caption{Différentes vues du potentiel}
    \label{f v}
 \end{figure}
+On voit sur le tracé de gauche que dans ce cas là on observe bien des effets de bord. Au centre du fil ($z=0$) la forme du potentiel est relativement proche de celle qu'on a pu trouver dans le cadre du modèle où le tube était considéré infini.
+
 
 
 %\begin{figure}[h]
